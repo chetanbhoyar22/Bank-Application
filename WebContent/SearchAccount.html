@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+<script language="Javascript" type="text/javascript">
+            
+            
+            function createRequestObject() {
+                var tmpXmlHttpObject;
+                if (window.XMLHttpRequest) {
+                        tmpXmlHttpObject = new XMLHttpRequest();
+                } else if (window.ActiveXObject) {
+                    tmpXmlHttpObject = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+            
+                return tmpXmlHttpObject;
+            }
+            
+            
+            var http = createRequestObject();
+            
+            function makeGetRequest() {
+                no=document.frm.ano.value;
+                http.open('get','SearchAccountWithBean.jsp?id=' + no);
+                http.onreadystatechange = processResponse;
+                http.send(null);
+            }
+            
+            function processResponse() {
+                if(http.readyState == 4){
+                    var response = http.responseText;
+                    document.getElementById('searchres').innerHTML = response;
+                }
+            }
+            
+            </script>
+</head>
+<body>
+<h2>Searching account using Bean...</h2>
+<hr>
+<form name="frm">
+Account Number <input type="number" name="ano">
+<input type="button" value="Search" onclick="makeGetRequest()">
+
+<br><br>
+<div id="searchres" style="color:deeppink;font-family:Verdana"></div>
+</form>
+</body>
+</html>

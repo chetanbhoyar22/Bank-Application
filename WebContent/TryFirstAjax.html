@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>First AJAX</title>
+
+<script language="Javascript" type="text/javascript">
+            
+            
+            function createRequestObject() {
+                var tmpXmlHttpObject;
+                if (window.XMLHttpRequest) {
+                        tmpXmlHttpObject = new XMLHttpRequest();
+                } else if (window.ActiveXObject) {
+                    tmpXmlHttpObject = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+            
+                return tmpXmlHttpObject;
+            }
+            
+            
+            var http = createRequestObject();
+            
+            function makeGetRequest() {
+                nm=document.frm.unm.value;
+                http.open('get', 'WelcomeUser.jsp?usernm=' + nm);
+                http.onreadystatechange = processResponse;
+                http.send(null);
+            }
+            
+            function processResponse() {
+                if(http.readyState == 4){
+                    var response = http.responseText;
+                    document.getElementById('mess').innerHTML = response;
+                }
+            }
+            
+            </script>
+
+
+
+
+</head>
+<body>
+<h2>My First AJAX Example</h2>
+<hr>
+<form name="frm">
+Name <input type="text" name="unm">
+<input type="button" value="Submit" onclick="makeGetRequest()">
+
+<br><br>
+<div id="mess" style="color:deeppink;font-family:Verdana">
+</div>
+
+
+</form>
+</body>
+</html>
